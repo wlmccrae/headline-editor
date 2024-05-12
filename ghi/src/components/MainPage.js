@@ -12,11 +12,7 @@ import './MainPage.css';
 function MainPage() {
     const [copyright, setCopyright] = useState('');
     const [resultsLoaded, setResultsLoaded] = useState(false);
-    const [myArticle, setMyArticle] = useState({
-        headline: {main: ''},
-        snippet: '',
-        byline: {original: ''},
-    });
+    const [myArticle, setMyArticle] = useState([]);
     const [archiveFormData, setArchiveFormData] = useState({
         month: 0,
         year: 0,
@@ -50,7 +46,7 @@ function MainPage() {
 
             setCopyright(archiveData.copyright);
             setResultsLoaded(true);
-            setMyArticle(archiveData.response.docs[0]);
+            setMyArticle(archiveData.response.docs);
         } else {
             window.confirm("There was a problem fetching the NY Times archive.")
         }
