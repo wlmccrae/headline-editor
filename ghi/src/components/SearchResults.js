@@ -1,6 +1,4 @@
-import {
-    Heading,
-    Text } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 import ArticleList from './ArticleList.js';
 import './SearchResults.css';
 
