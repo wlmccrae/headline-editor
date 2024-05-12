@@ -1,3 +1,9 @@
+import {
+    Heading,
+    Text,
+    Stack,
+    Input, InputGroup, InputLeftAddon,
+    Button, Divider} from '@chakra-ui/react'
 import './SearchResults.css';
 
 function SearchResults(props) {
@@ -16,16 +22,15 @@ function SearchResults(props) {
         11: "November",
         12: "December"
     };
-
     return (
         <div className="archivedisplay">
-            <h1>NY Times Archive for { props.formData.year } { monthDict[props.formData.month] }</h1>
-            <h2>{props.articleData.headline.main}</h2>
-            <p>Image URL: {props.articleData.multimedia[4].url}</p>
-            <p>{props.articleData.abstract}</p>
-            <p className="byline">{props.articleData.byline.original}</p>
-            <p>News Desk: {props.articleData.news_desk}</p>
-            <p className="copyright">{props.copyright}</p>
+            <Heading size='lg'>NY Times Archive for { props.formData.year } { monthDict[props.formData.month] }</Heading>
+            <Heading size='sm'>{props.articleData.headline.main}</Heading>
+            {props.articleData.multimedia.length > 4 ? (<Text>Image URL: {props.articleData.multimedia[4].url}</Text>) : (<Text>No media.</Text>)}
+            <Text>{props.articleData.abstract}</Text>
+            <Text className="byline">{props.articleData.byline.original}</Text>
+            <Text>News Desk: {props.articleData.news_desk}</Text>
+            <Text className="copyright">{props.copyright}</Text>
         </div>
     );
 };

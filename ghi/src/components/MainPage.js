@@ -2,9 +2,10 @@ import React, {useState} from 'react';
 import SearchResults from "./SearchResults";
 import {
     Heading,
+    Text,
     Stack,
     Input, InputGroup, InputLeftAddon,
-    Button, ButtonGroup,
+    Button, Divider,
     Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import './MainPage.css';
 
@@ -99,6 +100,7 @@ function MainPage() {
                 <Card className="search-card" width='400px' boxShadow='lg'>
                     <CardHeader>
                         <Heading size='md'>Search the NY Times Archive</Heading>
+                        <Text as='i'>Retrieve all articles for a particular month.</Text>
                     </CardHeader>
                     <CardBody>
                         <form onSubmit={fetchArchive} id='archive-form'>
@@ -114,6 +116,7 @@ function MainPage() {
                             </Stack>
                         </form>
                     </CardBody>
+                    <Divider color='gray.200' />
                     <CardFooter>
                         <Stack spacing={2} direction='row' align='center'>
                             <Button onClick={fetchArchive} className="button" size='sm'>Search</Button>
