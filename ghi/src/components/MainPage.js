@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import SearchResults from "./SearchResults";
+import './MainPage.css';
 
 function MainPage() {
     const [copyright, setCopyright] = useState('');
@@ -12,20 +14,7 @@ function MainPage() {
         month: 0,
         year: 0,
     });
-    const monthDict = {
-        1: "January",
-        2: "February",
-        3: "March",
-        4: "April",
-        5: "May",
-        6: "June",
-        7: "July",
-        8: "August",
-        9: "September",
-        10: "October",
-        11: "November",
-        12: "December"
-    };
+
     const API_KEY = process.env.REACT_APP_NYT_API_KEY;
 
     // Handle when the form changes
@@ -92,31 +81,23 @@ function MainPage() {
         </div>
     );
 
-    const archiveLoaded = () => (
-        <div className="archivedisplay">
-            <h1>NY Times Archive for { archiveFormData.year } { monthDict[archiveFormData.month] }</h1>
-            <h2>{copyright}</h2>
-            <h2>{myArticle.headline.main}</h2>
-            <p>{myArticle.snippet}</p>
-            <p>by {myArticle.byline.original}</p>
-        </div>
-    )
-
     return (
         <div className="content">
-            <h1>Search the NY Times Archive</h1>
             <div className="searches">
-                <form onSubmit={fetchArchive} id='archive-form' className='archive-form'>
-                    <label htmlFor="year">Year </label>
-                    <input onChange={handleChange} type="text" id="year" name="year" placeholder="2024" />
-                    <label htmlFor="month">Month </label>
-                    <input onChange={handleChange} type="text" id="month" name="month" placeholder="1" />
-                </form>
-                <button onClick={fetchArchive}>NY Times Archive</button>
+                <h1>Search the NY Times Archive</h1>
+                <div className='archive-form'>
+                    <form onSubmit={fetchArchive} id='archive-form'>
+                        <label htmlFor="year">Year </label>
+                        <input onChange={handleChange} type="text" id="year" name="year" placeholder="2024" />
+                        <label htmlFor="month">Month </label>
+                        <input onChange={handleChange} type="text" id="month" name="month" placeholder="1" />
+                    </form>
+                    <button onClick={fetchArchive}>NY Times Archive</button>
+                </div>
                 <hr></hr>
             </div>
             <div className="results">
-                {resultsLoaded ? archiveLoaded() : freshLanding()}
+                {resultsLoaded ? <SearchResults formData={archiveFormData} articleData={myArticle} copyright={copyright} /> : freshLanding()}
             </div>
         </div>
 
