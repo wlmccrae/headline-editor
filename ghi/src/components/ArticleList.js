@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text } from '@chakra-ui/react'
 
 function ArticleList(props) {
-    console.log('***** (ArticleList) Articles: ', props);
+    // console.log('***** (ArticleList) Articles: ', props);
     const [myArticle, setMyArticle] = useState({});
 
     const handleChange = (event) => {
