@@ -4,7 +4,8 @@ import {
     Heading,
     Stack,
     Input, InputGroup, InputLeftAddon,
-    Button, ButtonGroup } from '@chakra-ui/react'
+    Button, ButtonGroup,
+    Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import './MainPage.css';
 
 function MainPage() {
@@ -95,25 +96,31 @@ function MainPage() {
     return (
         <div className="content">
             <div className="searches">
-                <Heading border='1px'>Search the NY Times Archive</Heading>
-                <div className='archive-form'>
-                    <form onSubmit={fetchArchive} id='archive-form'>
-                        <Stack spacing={1}>
-                            <InputGroup>
-                                <InputLeftAddon w='120px'>Year (YYYY)</InputLeftAddon>
-                                <Input onChange={handleChange} type="text" id="year" name="year" placeholder="2024" variant='outline' width='100px'/>
-                            </InputGroup>
-                            <InputGroup>
-                                <InputLeftAddon w='120px'>Month (M)</InputLeftAddon>
-                                <Input onChange={handleChange} type="text" id="month" name="month" placeholder="1" variant='outline' width='100px'/>
-                            </InputGroup>
+                <Card className="search-card" width='400px' boxShadow='lg'>
+                    <CardHeader>
+                        <Heading size='md'>Search the NY Times Archive</Heading>
+                    </CardHeader>
+                    <CardBody>
+                        <form onSubmit={fetchArchive} id='archive-form'>
+                            <Stack spacing={1}>
+                                <InputGroup>
+                                    <InputLeftAddon w='120px'>Year (YYYY)</InputLeftAddon>
+                                    <Input onChange={handleChange} type="text" id="year" name="year" placeholder="2024" variant='outline' width='100px'/>
+                                </InputGroup>
+                                <InputGroup>
+                                    <InputLeftAddon w='120px'>Month (M)</InputLeftAddon>
+                                    <Input onChange={handleChange} type="text" id="month" name="month" placeholder="1" variant='outline' width='100px'/>
+                                </InputGroup>
+                            </Stack>
+                        </form>
+                    </CardBody>
+                    <CardFooter>
+                        <Stack spacing={2} direction='row' align='center'>
+                            <Button onClick={fetchArchive} className="button" size='sm'>Search</Button>
+                            <Button onClick={resetPage} className="button" size='sm'>Reset Page</Button>
                         </Stack>
-                    </form>
-                    <Stack spacing={2} direction='row' align='center' mt='20px' mb='20px'>
-                        <Button onClick={fetchArchive} className="button" size='sm'>Search</Button>
-                        <Button onClick={resetPage} className="button" size='sm'>Reset Page</Button>
-                    </Stack>
-                </div>
+                    </CardFooter>
+                </Card>
             </div>
             <div className="results">
                 {resultsLoaded ? <SearchResults formData={archiveFormData} articleData={myArticle} copyright={copyright} /> : freshLanding()}
