@@ -20,7 +20,7 @@ function SearchResults(props) {
     };
     return (
         <div className="archivedisplay">
-            <Heading size='lg'>NY Times Archive for { props.formData.year } { monthDict[props.formData.month] }</Heading>
+            <Heading pt='30px' pb='10px' size='lg'>NY Times Archive for { props.formData.year } { monthDict[props.formData.month] }</Heading>
             <ArticleList listdata={props.articleData}/>
             {/* <Heading size='sm'>{props.articleData.headline.main}</Heading>
             <Text className="byline">{props.articleData.byline.original}</Text>

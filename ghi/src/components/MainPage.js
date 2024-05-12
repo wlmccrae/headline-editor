@@ -107,7 +107,7 @@ function MainPage() {
                                 </InputGroup>
                                 <InputGroup>
                                     <InputLeftAddon w='120px'>Month (M)</InputLeftAddon>
-                                    <Input onChange={handleChange} type="text" id="month" name="month" placeholder="1" variant='outline' width='100px'/>
+                                    <Input onChange={handleChange} type="text" id="month" name="month" placeholder="5" variant='outline' width='100px'/>
                                 </InputGroup>
                             </Stack>
                         </form>

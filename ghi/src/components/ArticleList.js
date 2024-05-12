@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Text } from '@chakra-ui/react'
+import { Select, Divider } from '@chakra-ui/react'
 
 function ArticleList(props) {
-    // console.log('***** (ArticleList) Articles: ', props);
+    console.log('***** (ArticleList) Articles: ', props);
     const [myArticle, setMyArticle] = useState({});
 
     const handleChange = (event) => {
@@ -11,18 +11,21 @@ function ArticleList(props) {
 
     return (
         <>
-            <Text>Select an article to display.</Text>
             <form>
-                <select value={myArticle} onChange={handleChange}>
+                <Select value={myArticle._id} onChange={handleChange} placeholder='Click to Select Article' size='sm' variant='filled' width='30%'>
                     {props.listdata.map(article => {
                         return (
-                            <option value={article.headline.main}>
+                            <option key={article._id} value={article._id}>
                                 {article.headline.main}
                             </option>
-                            )
+                        )
                     })}
-                </select>
+                </Select>
             </form>
+            <div className='article-display' width='70%'>
+                <Divider orientation='vertical' />
+            </div>
+
         </>
     );
 };
