@@ -25,7 +25,13 @@ function MainPage() {
         });
     };
 
-    // Handle the fetch archive button.
+    // Handle the reset page button.
+    const resetPage = async(event) => {
+        event.preventDefault();
+        setResultsLoaded(false);
+    };
+
+    // Handle the search button.
     const fetchArchive = async (event) => {
         const archiveURL = `https://corsproxy.io/?https://api.nytimes.com/svc/archive/v1/${archiveFormData.year}/${archiveFormData.month}.json?api-key=${API_KEY}`;
         event.preventDefault();
@@ -33,7 +39,7 @@ function MainPage() {
         const archiveResponse = await fetch(archiveURL);
         if (archiveResponse.ok) {
             const archiveData = await archiveResponse.json();
-            console.log(`***** Archive Data ==> ${JSON.stringify(archiveData)}`);
+            // console.log(`***** Archive Data ==> ${JSON.stringify(archiveData)}`);
 
             setCopyright(archiveData.copyright);
             setResultsLoaded(true);
@@ -89,10 +95,12 @@ function MainPage() {
                     <form onSubmit={fetchArchive} id='archive-form'>
                         <label htmlFor="year">Year </label>
                         <input onChange={handleChange} type="text" id="year" name="year" placeholder="2024" />
+                        <br></br>
                         <label htmlFor="month">Month </label>
                         <input onChange={handleChange} type="text" id="month" name="month" placeholder="1" />
                     </form>
-                    <button onClick={fetchArchive}>NY Times Archive</button>
+                    <button onClick={fetchArchive} className="button">Search</button>
+                    <button onClick={resetPage} className="button">Reset Page</button>
                 </div>
                 <hr></hr>
             </div>

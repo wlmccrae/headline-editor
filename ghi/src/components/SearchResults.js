@@ -21,8 +21,10 @@ function SearchResults(props) {
         <div className="archivedisplay">
             <h1>NY Times Archive for { props.formData.year } { monthDict[props.formData.month] }</h1>
             <h2>{props.articleData.headline.main}</h2>
-            <p>{props.articleData.snippet}</p>
-            <p className="byline">by {props.articleData.byline.original}</p>
+            <p>Image URL: {props.articleData.multimedia[4].url}</p>
+            <p>{props.articleData.abstract}</p>
+            <p className="byline">{props.articleData.byline.original}</p>
+            <p>News Desk: {props.articleData.news_desk}</p>
             <p className="copyright">{props.copyright}</p>
         </div>
     );
