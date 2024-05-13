@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Heading, Text, Button } from '@chakra-ui/react'
+import { Select, Heading, Text, Button, Divider } from '@chakra-ui/react'
 import './MainPage.css';
 
 function ArticleList(props) {
@@ -50,7 +50,8 @@ function ArticleList(props) {
             <div className='article-display'>
                 { articleLoaded ?
                     <>
-                        <Heading size='sm'>{myArticle.headline.main}</Heading>
+                        <Divider paddingTop='10px' />
+                        <Heading size='sm' paddingTop='10px'>{myArticle.headline.main}</Heading>
                         <Text className="byline">{myArticle.byline.original}</Text>
                         <br></br>
                         {myArticle.multimedia.length > 4 ? (<Text>Image URL: {myArticle.multimedia[4].url}</Text>) : (<Text>No media.</Text>)}
