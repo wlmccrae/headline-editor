@@ -99,7 +99,7 @@ function MainPage() {
                         <Text as='i'>Retrieve all articles for a particular month.</Text>
                     </CardHeader>
                     <CardBody>
-                        <form onSubmit={fetchArchive} id='archive-form'>
+                        <form id='archive-form'>
                             <Stack spacing={1}>
                                 <InputGroup>
                                     <InputLeftAddon w='120px'>Year (YYYY)</InputLeftAddon>
