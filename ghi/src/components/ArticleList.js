@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { Select, Heading, Text, Button, Divider } from '@chakra-ui/react'
-import './MainPage.css';
+import { Select, Heading, Text, Button, Divider, Link } from '@chakra-ui/react'
 
 function ArticleList(props) {
-    console.log('***** (ArticleList) Articles: ', props);
+    // console.log('***** (ArticleList) Articles: ', props);
     const [myArticleId, setMyArticleId] = useState({});
     const [myArticle, setMyArticle] = useState({});
     const [articleLoaded, setArticleLoaded] = useState(false);
 
     const handleChange = async (event) => {
       setMyArticleId(event.target.value);
-    //   console.log('***** (ArticleList) Selected Article ID: ', event.target.value);
     };
 
     const handleSubmit = async (event) => {
@@ -44,9 +42,6 @@ function ArticleList(props) {
                 </Select>
             </form>
             <Button onClick={handleSubmit} size='sm' className='button'>Submit</Button>
-            {/* <div width='70%'>
-                <Divider orientation='vertical' />
-            </div> */}
             <div className='article-display'>
                 { articleLoaded ?
                     <>
@@ -57,8 +52,7 @@ function ArticleList(props) {
                         {myArticle.multimedia.length > 4 ? (<Text>Image URL: {myArticle.multimedia[4].url}</Text>) : (<Text>No media.</Text>)}
                         <Text>{myArticle.abstract}</Text>
                         <Text>News Desk: {myArticle.news_desk}</Text>
-                        <br></br>
-                        <Text className="copyright">{props.copyright}</Text>
+                        <Link textDecoration="underline" href={myArticle.web_url} target="_blank" isExternal>Original Article</Link>
                     </>
                 : <Text paddingTop='10px'>Please select an article.</Text>}
             </div>

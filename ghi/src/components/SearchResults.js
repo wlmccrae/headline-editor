@@ -1,4 +1,4 @@
-import { Heading } from '@chakra-ui/react';
+import { Heading, Text } from '@chakra-ui/react';
 import ArticleList from './ArticleList.js';
 import './SearchResults.css';
 
@@ -22,6 +22,8 @@ function SearchResults(props) {
         <div className="archivedisplay">
             <Heading pt='30px' pb='10px' size='lg'>NY Times Archive for { props.formData.year } { monthDict[props.formData.month] }</Heading>
             <ArticleList listdata={props.articleData}/>
+            <br></br>
+            <Text className="copyright">All articles are {props.copyright}</Text>
         </div>
     );
 };
