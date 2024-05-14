@@ -3,7 +3,6 @@ import {
     Heading,
     Text,
     Divider,
-    Center,
     Select,
     Button,
     Link,
@@ -52,12 +51,12 @@ function SearchResults(props) {
 
 
     return (
-        <div className="archive-display">
+        <div className="search-results">
             <Divider color='gray.200' marginTop='20px' />
-            <Heading pt='30px' pb='10px' size='md'>NY Times Archive for { props.formData.year } { monthDict[props.formData.month] }</Heading>
-            <div className="article-display">
+            <div className="article-list">
                 <Flex height='auto'>
-                    <Box width='38%' borderRight='1px'>
+                    <Box width='38%' borderRight='1px' borderColor='gray.200'>
+                        <Heading pt='30px' pb='10px' size='md'>NY Times Archive for { props.formData.year } { monthDict[props.formData.month] }</Heading>
                         <form id="select-article">
                             <Select value={myArticle._id} onChange={handleChange} placeholder='Click to Select Article' size='sm' variant='filled' width='50%' paddingBottom='10px'>
                                 {props.articleData.map(article => {
@@ -74,7 +73,6 @@ function SearchResults(props) {
                     <Box className='article-display' width='60%' paddingLeft='15px'>
                         { articleLoaded ?
                             <>
-                                <Divider paddingTop='10px' />
                                 <Heading size='sm' paddingTop='10px'>{myArticle.headline.main}</Heading>
                                 <Text className="byline">{myArticle.byline.original}</Text>
                                 <br></br>
@@ -87,8 +85,7 @@ function SearchResults(props) {
                     </Box>
                 </Flex>
             </div>
-            <br></br>
-            <Center marginTop='10px'><Text className="copyright" fontSize='sm'>All articles are {props.copyright}</Text></Center>
+            <Text className="copyright" fontSize='sm' marginTop='30px'>All articles are {props.copyright}</Text>
         </div>
     );
 };
