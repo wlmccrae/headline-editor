@@ -6,7 +6,7 @@ function Footer() {
     return (
         <div className="footer">
             <Divider />
-            <Text pt='5px'>
+            <Text pt='5px' fontSize='sm'>
                 Web App Created by <Link textDecoration="underline" href="https://www.linkedin.com/in/wmccrae" target="_blank" isExternal>Wanda L. McCrae</Link>, Copyright 2024. Code available on <Link textDecoration="underline" href="https://github.com/wlmccrae/headline-editor" target="_blank" isExternal>GitHub</Link>.
             </Text>
         </div>

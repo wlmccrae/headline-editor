@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import SearchResults from "./SearchResults";
 import {
     Heading,
-    Text, Center,
+    Center,
     Stack,
     Input, InputGroup, InputLeftAddon,
     Button, Divider,

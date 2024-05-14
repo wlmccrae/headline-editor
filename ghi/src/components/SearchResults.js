@@ -1,5 +1,14 @@
-import { Heading, Text } from '@chakra-ui/react';
-import ArticleList from './ArticleList.js';
+import React, { useState } from 'react';
+import {
+    Heading,
+    Text,
+    Divider,
+    Center,
+    Select,
+    Button,
+    Link,
+    Flex,
+    Box } from '@chakra-ui/react';
 import './SearchResults.css';
 
 function SearchResults(props) {
@@ -18,12 +27,68 @@ function SearchResults(props) {
         11: "November",
         12: "December"
     };
+
+    const [myArticleId, setMyArticleId] = useState({});
+    const [myArticle, setMyArticle] = useState({});
+    const [articleLoaded, setArticleLoaded] = useState(false);
+
+    // Set the ID for the selected article.
+    const handleChange = async (event) => {
+      setMyArticleId(event.target.value);
+    };
+
+    const handleSubmit = async (event) => {
+        // Load that article's data.
+        let foundArticle = {};
+        for (let i = 0; i < props.articleData.length; i++){
+            if (props.articleData[i]['_id'] === myArticleId) {
+                foundArticle = props.articleData[i];
+            };
+        };
+        // console.log('***** (ArticleList) Found Article: ', foundArticle);
+        setMyArticle(foundArticle);
+        setArticleLoaded(true);
+    };
+
+
     return (
-        <div className="archivedisplay">
-            <Heading pt='30px' pb='10px' size='lg'>NY Times Archive for { props.formData.year } { monthDict[props.formData.month] }</Heading>
-            <ArticleList listdata={props.articleData}/>
+        <div className="archive-display">
+            <Divider color='gray.200' marginTop='20px' />
+            <Heading pt='30px' pb='10px' size='md'>NY Times Archive for { props.formData.year } { monthDict[props.formData.month] }</Heading>
+            <div className="article-display">
+                <Flex height='auto'>
+                    <Box width='38%' borderRight='1px'>
+                        <form id="select-article">
+                            <Select value={myArticle._id} onChange={handleChange} placeholder='Click to Select Article' size='sm' variant='filled' width='50%' paddingBottom='10px'>
+                                {props.articleData.map(article => {
+                                    return (
+                                        <option key={article._id} value={article._id}>
+                                            {article.headline.main}
+                                        </option>
+                                    )
+                                })}
+                            </Select>
+                        </form>
+                        <Button onClick={handleSubmit} size='sm' className='button'>Submit</Button>
+                    </Box>
+                    <Box className='article-display' width='60%' paddingLeft='15px'>
+                        { articleLoaded ?
+                            <>
+                                <Divider paddingTop='10px' />
+                                <Heading size='sm' paddingTop='10px'>{myArticle.headline.main}</Heading>
+                                <Text className="byline">{myArticle.byline.original}</Text>
+                                <br></br>
+                                {myArticle.multimedia.length > 4 ? (<Text>Image URL: {myArticle.multimedia[4].url}</Text>) : (<Text>No media.</Text>)}
+                                <Text>{myArticle.abstract}</Text>
+                                <Text>News Desk: {myArticle.news_desk}</Text>
+                                <Link textDecoration="underline" href={myArticle.web_url} target="_blank" isExternal>Original Article</Link>
+                            </>
+                        : <Text paddingTop='10px'>Please select an article.</Text>}
+                    </Box>
+                </Flex>
+            </div>
             <br></br>
-            <Text className="copyright">All articles are {props.copyright}</Text>
+            <Center marginTop='10px'><Text className="copyright" fontSize='sm'>All articles are {props.copyright}</Text></Center>
         </div>
     );
 };
