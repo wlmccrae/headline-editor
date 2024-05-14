@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import SearchResults from "./SearchResults";
 import {
     Heading,
-    Text,
+    Text, Center,
     Stack,
     Input, InputGroup, InputLeftAddon,
     Button, Divider,
@@ -93,10 +93,10 @@ function MainPage() {
     return (
         <div className="content">
             <div className="searches">
-                <Card className="search-card" width='400px' boxShadow='lg'>
+                <Center><Heading size='xl' marginBottom='10px' >Search the NY Times Archive</Heading></Center>
+                <Card className="search-card" width='400px' boxShadow='lg' border='1px' borderColor='gray.100'>
                     <CardHeader>
-                        <Heading size='md'>Search the NY Times Archive</Heading>
-                        <Text as='i'>Retrieve all articles for a particular month.</Text>
+                        <Heading size='sm'>Retrieve all articles for a particular month.</Heading>
                     </CardHeader>
                     <CardBody>
                         <form id='archive-form'>
