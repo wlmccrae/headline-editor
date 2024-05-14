@@ -6,7 +6,7 @@ import {
     Select,
     Button,
     Link, Input,
-    Flex,
+    Flex, VStack,
     Box } from '@chakra-ui/react';
 import './SearchResults.css';
 
@@ -55,12 +55,13 @@ function SearchResults(props) {
         setArticleLoaded(true);
     };
 
+    // Update the headline
     const handleEdit = async (event) => {
         setMyArticle({
-            ...myArticle,
+            ...myArticle,  // Spread the existing state variable
             headline: {
-                ...myArticle.headline,
-                main: userHeadline
+                ...myArticle.headline, // Spread the existing nested object
+                main: userHeadline,  // Update the nested property
             },
         });
     };
@@ -83,14 +84,14 @@ function SearchResults(props) {
                                     )
                                 })}
                             </Select>
+                            <Button onClick={handleSubmit} size='sm' className='button'>Submit</Button>
                         </form>
-                        <Button onClick={handleSubmit} size='sm' className='button'>Submit</Button>
-                            { articleLoaded &&
-                                <>
-                                    <Input onChange={editHeadline} type="text" id="editheadline" name="editheadline" placeholder="Edit the headline" />
-                                    <Button onClick={handleEdit} size='sm' className='button'>Edit</Button>
-                                </>
-                            }
+                        { articleLoaded &&
+                            <VStack spacing='5px' paddingTop='20px' paddingRight='10px' justifyContent='left'>
+                                <Input onChange={editHeadline} type="text" id="editheadline" name="editheadline" placeholder="Edit the headline" />
+                                <Button onClick={handleEdit} size='sm' className='button' >Edit</Button>
+                            </VStack>
+                        }
                     </Box>
                     <Box className='article-display' width='60%' paddingLeft='15px'>
                         { articleLoaded ?
