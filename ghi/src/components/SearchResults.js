@@ -5,7 +5,7 @@ import {
     Divider,
     Select,
     Button,
-    Link,
+    Link, Input,
     Flex,
     Box } from '@chakra-ui/react';
 import './SearchResults.css';
@@ -30,10 +30,16 @@ function SearchResults(props) {
     const [myArticleId, setMyArticleId] = useState({});
     const [myArticle, setMyArticle] = useState({});
     const [articleLoaded, setArticleLoaded] = useState(false);
+    const [userHeadline, setUserHeadline] = useState('');
 
     // Set the ID for the selected article.
     const handleChange = async (event) => {
       setMyArticleId(event.target.value);
+    };
+
+    // Handle when the user edits the headline
+    const editHeadline = (event) => {
+        setUserHeadline(event.target.value);
     };
 
     const handleSubmit = async (event) => {
@@ -47,6 +53,16 @@ function SearchResults(props) {
         // console.log('***** (ArticleList) Found Article: ', foundArticle);
         setMyArticle(foundArticle);
         setArticleLoaded(true);
+    };
+
+    const handleEdit = async (event) => {
+        setMyArticle({
+            ...myArticle,
+            headline: {
+                ...myArticle.headline,
+                main: userHeadline
+            },
+        });
     };
 
 
@@ -69,6 +85,12 @@ function SearchResults(props) {
                             </Select>
                         </form>
                         <Button onClick={handleSubmit} size='sm' className='button'>Submit</Button>
+                            { articleLoaded &&
+                                <>
+                                    <Input onChange={editHeadline} type="text" id="editheadline" name="editheadline" placeholder="Edit the headline" />
+                                    <Button onClick={handleEdit} size='sm' className='button'>Edit</Button>
+                                </>
+                            }
                     </Box>
                     <Box className='article-display' width='60%' paddingLeft='15px'>
                         { articleLoaded ?
