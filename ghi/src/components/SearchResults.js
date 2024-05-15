@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Heading,
     Text,
@@ -42,19 +42,6 @@ function SearchResults(props) {
         setUserHeadline(event.target.value);
     };
 
-    const handleSubmit = async (event) => {
-        // Load that article's data.
-        let foundArticle = {};
-        for (let i = 0; i < props.articleData.length; i++){
-            if (props.articleData[i]['_id'] === myArticleId) {
-                foundArticle = props.articleData[i];
-            };
-        };
-        // console.log('***** (ArticleList) Found Article: ', foundArticle);
-        setMyArticle(foundArticle);
-        setArticleLoaded(true);
-    };
-
     // Update the headline
     const handleEdit = async (event) => {
         setMyArticle({
@@ -66,6 +53,16 @@ function SearchResults(props) {
         });
     };
 
+    useEffect(() => {
+        // Load that article's data when myArticleId changes.
+        const foundArticle = props.articleData.find(article => article._id === myArticleId);
+        setMyArticle(foundArticle || {});
+        setArticleLoaded(false); // Reset articleLoaded to false whenever myArticleId changes
+    }, [myArticleId, props.articleData]);
+
+    useEffect(() => {
+        setArticleLoaded(true);
+    }, [myArticle]);
 
     return (
         <div className="search-results">
@@ -84,9 +81,8 @@ function SearchResults(props) {
                                     )
                                 })}
                             </Select>
-                            <Button onClick={handleSubmit} size='sm' className='button'>Submit</Button>
                         </form>
-                        { articleLoaded &&
+                        { articleLoaded && myArticle.headline &&
                             <VStack spacing='5px' paddingTop='20px' paddingRight='10px' justifyContent='left'>
                                 <Input onChange={editHeadline} type="text" id="editheadline" name="editheadline" placeholder="Edit the headline" />
                                 <Button onClick={handleEdit} size='sm' className='button' >Edit</Button>
@@ -94,7 +90,7 @@ function SearchResults(props) {
                         }
                     </Box>
                     <Box className='article-display' width='60%' paddingLeft='15px'>
-                        { articleLoaded ?
+                        { articleLoaded && myArticle.headline ?
                             <>
                                 <Heading size='sm' paddingTop='10px'>{myArticle.headline.main}</Heading>
                                 <Text className="byline">{myArticle.byline.original}</Text>
