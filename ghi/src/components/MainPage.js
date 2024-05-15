@@ -12,11 +12,12 @@ import './MainPage.css';
 function MainPage() {
     const [copyright, setCopyright] = useState('');
     const [resultsLoaded, setResultsLoaded] = useState(false);
-    const [myArticle, setMyArticle] = useState([]);
+    const [articleList, setarticleList] = useState([]);
     const [archiveFormData, setArchiveFormData] = useState({
         month: 0,
         year: 0,
     });
+    const [formDate, setFormDate] = useState({month: 0, year: 0,});
 
     const API_KEY = process.env.REACT_APP_NYT_API_KEY;
 
@@ -43,15 +44,15 @@ function MainPage() {
         if (archiveResponse.ok) {
             const archiveData = await archiveResponse.json();
             // console.log(`***** Archive Data ==> ${JSON.stringify(archiveData)}`);
-
+            setFormDate(archiveFormData);
             setCopyright(archiveData.copyright);
             setResultsLoaded(true);
-            setMyArticle(archiveData.response.docs);
+            setarticleList(archiveData.response.docs);
         } else {
             window.confirm("There was a problem fetching the NY Times archive.")
         }
         // console.log(`***** Copyright: ${copyright}`);
-        // console.log(`***** Article Info: ${JSON.stringify(myArticle)}`);
+        // console.log(`***** Article Info: ${JSON.stringify(articleList)}`);
         // console.log(`***** Component Status: ${resultsLoaded}`);
     };
 
@@ -122,7 +123,7 @@ function MainPage() {
                 </Card>
             </div>
             <div className="results">
-                {resultsLoaded ? <SearchResults formData={archiveFormData} articleData={myArticle} copyright={copyright} /> : freshLanding()}
+                {resultsLoaded ? <SearchResults formData={formDate} articleData={articleList} copyright={copyright} /> : freshLanding()}
             </div>
         </div>
 
