@@ -39,12 +39,12 @@ function MainPage() {
     const fetchArchive = async (event) => {
         const archiveURL = `https://corsproxy.io/?https://api.nytimes.com/svc/archive/v1/${archiveFormData.year}/${archiveFormData.month}.json?api-key=${API_KEY}`;
         event.preventDefault();
+        setFormDate(archiveFormData);
 
         const archiveResponse = await fetch(archiveURL);
         if (archiveResponse.ok) {
             const archiveData = await archiveResponse.json();
             // console.log(`***** Archive Data ==> ${JSON.stringify(archiveData)}`);
-            setFormDate(archiveFormData);
             setCopyright(archiveData.copyright);
             setResultsLoaded(true);
             setarticleList(archiveData.response.docs);
