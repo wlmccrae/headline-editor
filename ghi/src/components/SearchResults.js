@@ -4,7 +4,7 @@ import {
     Text,
     Divider,
     Select,
-    Button,
+    Button, Image,
     Link, Input,
     Flex, VStack,
     Box } from '@chakra-ui/react';
@@ -29,6 +29,7 @@ function SearchResults(props) {
 
     const [myArticleId, setMyArticleId] = useState({});
     const [myArticle, setMyArticle] = useState({});
+    const [myArticleImageUrl, setMyArticleImageUrl] = useState('');
     const [articleLoaded, setArticleLoaded] = useState(false);
     const [userHeadline, setUserHeadline] = useState('');
 
@@ -58,10 +59,15 @@ function SearchResults(props) {
         const foundArticle = props.articleData.find(article => article._id === myArticleId);
         setMyArticle(foundArticle || {});
         setArticleLoaded(false); // Reset articleLoaded to false whenever myArticleId changes
+        if (foundArticle !== undefined) {
+            const imageUrl = `https://nytimes.com/${foundArticle.multimedia[4].url}`;
+            setMyArticleImageUrl(imageUrl);
+        }
     }, [myArticleId, props.articleData]);
 
     useEffect(() => {
         setArticleLoaded(true);
+        console.log('***** Article Loaded: ', myArticle);
     }, [myArticle]);
 
     return (
@@ -95,7 +101,7 @@ function SearchResults(props) {
                                 <Heading size='sm' paddingTop='10px'>{myArticle.headline.main}</Heading>
                                 <Text className="byline">{myArticle.byline.original}</Text>
                                 <br></br>
-                                {myArticle.multimedia.length > 4 ? (<Text>Image URL: {myArticle.multimedia[4].url}</Text>) : (<Text>No media.</Text>)}
+                                {myArticle.multimedia.length > 4 ? (<Image src={myArticleImageUrl}></Image>) : (<Text>No media.</Text>)}
                                 <Text>{myArticle.abstract}</Text>
                                 <Text>News Desk: {myArticle.news_desk}</Text>
                                 <Link textDecoration="underline" href={myArticle.web_url} target="_blank" isExternal>Original Article</Link>
