@@ -59,7 +59,9 @@ function SearchResults(props) {
         const foundArticle = props.articleData.find(article => article._id === myArticleId);
         setMyArticle(foundArticle || {});
         setArticleLoaded(false); // Reset articleLoaded to false whenever myArticleId changes
-        if (foundArticle !== undefined) {
+        if (foundArticle !== undefined &&
+            foundArticle.multimedia !== undefined &&
+            foundArticle.multimedia[4] !== undefined) {
             const imageUrl = `https://nytimes.com/${foundArticle.multimedia[4].url}`;
             setMyArticleImageUrl(imageUrl);
         }
@@ -67,7 +69,7 @@ function SearchResults(props) {
 
     useEffect(() => {
         setArticleLoaded(true);
-        console.log('***** Article Loaded: ', myArticle);
+        // console.log('***** Article Loaded: ', myArticle);
     }, [myArticle]);
 
     return (
